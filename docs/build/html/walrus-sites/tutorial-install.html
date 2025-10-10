@@ -1,0 +1,453 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Installing the site builder - Walrus</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/javascript">
+          // Hacky check to only load Amplitude in production since we don't have environments:
+          const localAddresses = ['localhost', '127.0.0.1', '[::1]'];
+          if (localAddresses.indexOf(document.location.hostname) === -1) {
+            !function(){"use strict";!function(e,t){var r=e.amplitude||{_q:[],_iq:{}};if(r.invoked)e.console&&console.error&&console.error("Amplitude snippet has been loaded.");else{var n=function(e,t){e.prototype[t]=function(){return this._q.push({name:t,args:Array.prototype.slice.call(arguments,0)}),this}},s=function(e,t,r){return function(n){e._q.push({name:t,args:Array.prototype.slice.call(r,0),resolve:n})}},o=function(e,t,r){e._q.push({name:t,args:Array.prototype.slice.call(r,0)})},i=function(e,t,r){e[t]=function(){if(r)return{promise:new Promise(s(e,t,Array.prototype.slice.call(arguments)))};o(e,t,Array.prototype.slice.call(arguments))}},a=function(e){for(var t=0;t<g.length;t++)i(e,g[t],!1);for(var r=0;r<m.length;r++)i(e,m[r],!0)};r.invoked=!0;var c=t.createElement("script");c.type="text/javascript",c.integrity="sha384-pY2pkwHaLM/6UIseFHVU3hOKr6oAvhLcdYkoRZyaMDWLjpM6B7nTxtOdE823WAOQ",c.crossOrigin="anonymous",c.async=!0,c.src="https://cdn.amplitude.com/libs/analytics-browser-2.11.0-min.js.gz",c.onload=function(){e.amplitude.runQueuedFunctions||console.log("[Amplitude] Error: could not load SDK")};var u=t.getElementsByTagName("script")[0];u.parentNode.insertBefore(c,u);for(var p=function(){return this._q=[],this},l=["add","append","clearAll","prepend","set","setOnce","unset","preInsert","postInsert","remove","getUserProperties"],d=0;d<l.length;d++)n(p,l[d]);r.Identify=p;for(var f=function(){return this._q=[],this},v=["getEventProperties","setProductId","setQuantity","setPrice","setRevenue","setRevenueType","setEventProperties"],y=0;y<v.length;y++)n(f,v[y]);r.Revenue=f;var g=["getDeviceId","setDeviceId","getSessionId","setSessionId","getUserId","setUserId","setOptOut","setTransport","reset","extendSession"],m=["init","add","remove","track","logEvent","identify","groupIdentify","setGroup","revenue","flush"];a(r),r.createInstance=function(e){return r._iq[e]={_q:[]},a(r._iq[e]),r._iq[e]},e.amplitude=r}}(window,document)}();
+            amplitude.init('f60df2d0d709d50faa2ffda153a84bc0', { identityStorage:'none', defaultTracking: true });
+          }
+        </script>
+        
+        <script>
+            function initAskCookbook() {
+              // It's a public API key, so it's safe to expose it here
+              const PUBLIC_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU4Y2YyODM4NTcxODU5MjU0MGIyMDciLCJpYXQiOjE3MzM4NzM0NDgsImV4cCI6MjA0OTQ0OTQ0OH0.Z3cv3HuMkYq3aYZYzCKkkYuM5LI3KG-kuA0R-GaSMV4";
+        
+              let cookbookContainer = document.getElementById("__cookbook");
+              if (!cookbookContainer) {
+                cookbookContainer = document.createElement("div");
+                cookbookContainer.id = "__cookbook";
+                cookbookContainer.dataset.apiKey = PUBLIC_API_KEY;
+                document.body.appendChild(cookbookContainer);
+              }
+        
+              let cookbookScript = document.getElementById("__cookbook-script");
+              if (!cookbookScript) {
+                cookbookScript = document.createElement("script");
+                cookbookScript.id = "__cookbook-script";
+                cookbookScript.src = "https://cdn.jsdelivr.net/npm/@cookbookdev/docsbot/dist/standalone/index.cjs.js";
+                cookbookScript.async = true;
+                document.head.appendChild(cookbookScript);
+              }
+        
+        
+              const keyPressPropagationBlocker = function (e) {
+                e.stopPropagation();
+              };
+              document.addEventListener("cookbook:modal:state:change", function (e) {
+                const isOpen = e.detail.isOpen;
+                if (isOpen) {
+                  document.body.addEventListener("keydown", keyPressPropagationBlocker, { capture: true });
+                } else {
+                  document.body.removeEventListener("keydown", keyPressPropagationBlocker, { capture: true });
+                }
+              });
+            }
+        
+            // Check if the document is already loaded and if so, initialize the script, otherwise wait for the load event
+            if (document.readyState === "complete") {
+              initAskCookbook();
+            } else {
+              window.addEventListener("load", initAskCookbook);
+            }
+          </script>
+        
+          <meta name="algolia-site-verification" content="BCA21DA2879818D2">
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../docs/mdbook-admonish.css">
+        <link rel="stylesheet" href="../docs/theme/tabs.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Walrus</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="installing-the-site-builder"><a class="header" href="#installing-the-site-builder">Installing the site builder</a></h1>
+<p>This section describes the steps necessary to setup the Walrus Sites' <code>site-builder</code> tool and
+prepare your environment for development.</p>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<p>Before you start, make sure you</p>
+<ul>
+<li>have a recent version of <a href="https://www.rust-lang.org/tools/install">Rust</a> installed;</li>
+<li>followed all <a href="../usage/setup.html">Walrus setup instructions</a>.</li>
+</ul>
+<p>Then, follow these additional setup steps.</p>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<p>Similar to the <code>walrus</code> client CLI tool, we currently provide the <code>site-builder</code> client binary for
+macOS (Intel and Apple CPUs), Ubuntu, and Windows:</p>
+<h3 id="mainnet-binaries"><a class="header" href="#mainnet-binaries">Mainnet Binaries</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>OS</th><th>CPU</th><th>Architecture</th></tr></thead><tbody>
+<tr><td>Ubuntu</td><td>Intel 64bit</td><td><a href="https://storage.googleapis.com/mysten-walrus-binaries/site-builder-mainnet-latest-ubuntu-x86_64"><code>site-builder-mainnet-latest-ubuntu-x86_64</code></a></td></tr>
+<tr><td>MacOS</td><td>Apple Silicon</td><td><a href="https://storage.googleapis.com/mysten-walrus-binaries/site-builder-mainnet-latest-macos-arm64"><code>site-builder-mainnet-latest-macos-arm64</code></a></td></tr>
+<tr><td>MacOS</td><td>Intel 64bit</td><td><a href="https://storage.googleapis.com/mysten-walrus-binaries/site-builder-mainnet-latest-macos-x86_64"><code>site-builder-mainnet-latest-macos-x86_64</code></a></td></tr>
+<tr><td>Windows</td><td>Intel 64bit</td><td><a href="https://storage.googleapis.com/mysten-walrus-binaries/site-builder-mainnet-latest-windows-x86_64.exe"><code>site-builder-mainnet-latest-windows-x86_64.exe</code></a></td></tr>
+</tbody></table>
+</div>
+<h3 id="testnet-binaries"><a class="header" href="#testnet-binaries">Testnet Binaries</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>OS</th><th>CPU</th><th>Architecture</th></tr></thead><tbody>
+<tr><td>Ubuntu</td><td>Intel 64bit</td><td><a href="https://storage.googleapis.com/mysten-walrus-binaries/site-builder-testnet-latest-ubuntu-x86_64"><code>site-builder-testnet-latest-ubuntu-x86_64</code></a></td></tr>
+<tr><td>MacOS</td><td>Apple Silicon</td><td><a href="https://storage.googleapis.com/mysten-walrus-binaries/site-builder-testnet-latest-macos-arm64"><code>site-builder-testnet-latest-macos-arm64</code></a></td></tr>
+<tr><td>MacOS</td><td>Intel 64bit</td><td><a href="https://storage.googleapis.com/mysten-walrus-binaries/site-builder-testnet-latest-macos-x86_64"><code>site-builder-testnet-latest-macos-x86_64</code></a></td></tr>
+<tr><td>Windows</td><td>Intel 64bit</td><td><a href="https://storage.googleapis.com/mysten-walrus-binaries/site-builder-testnet-latest-windows-x86_64.exe"><code>site-builder-testnet-latest-windows-x86_64.exe</code></a></td></tr>
+</tbody></table>
+</div><div id="admonition-windows" class="admonition admonish-note" role="note" aria-labelledby="admonition-windows-title">
+<div class="admonition-title">
+<div id="admonition-windows-title">
+<p>Windows</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-windows"></a>
+</div>
+<div>
+<p>We now offer a pre-built binary also for Windows. However, most of the remaining instructions assume
+a UNIX-based system for the directory structure, commands, etc. If you use Windows, you may need to
+adapt most of those.</p>
+</div>
+</div>
+<p>You can download the latest build from our Google Cloud Storage (GCS) bucket (correctly setting the
+<code>$SYSTEM</code> variable):</p>
+<h3 id="mainnet-curl-request"><a class="header" href="#mainnet-curl-request">Mainnet curl request</a></h3>
+<pre><code class="language-sh">SYSTEM= # set this to your system: ubuntu-x86_64, ubuntu-x86_64-generic, macos-x86_64, macos-arm64, windows-x86_64.exe
+curl https://storage.googleapis.com/mysten-walrus-binaries/site-builder-mainnet-latest-$SYSTEM -o site-builder
+chmod +x site-builder
+</code></pre>
+<h3 id="testnet-curl-request"><a class="header" href="#testnet-curl-request">Testnet curl request</a></h3>
+<pre><code class="language-sh">SYSTEM= # set this to your system: ubuntu-x86_64, ubuntu-x86_64-generic, macos-x86_64, macos-arm64, windows-x86_64.exe
+curl https://storage.googleapis.com/mysten-walrus-binaries/site-builder-testnet-latest-$SYSTEM -o site-builder
+chmod +x site-builder
+</code></pre>
+<p>To be able to run it simply as <code>site-builder</code>, move the binary to any directory included in your
+<code>$PATH</code> environment variable. Standard locations are <code>/usr/local/bin/</code>, <code>$HOME/bin/</code>, or
+<code>$HOME/.local/bin/</code>.</p>
+<div id="admonition-note" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
+<div class="admonition-title">
+<div id="admonition-note-title">
+<p>Note</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-note"></a>
+</div>
+<div>
+<p>The site builder will look for the default configuration file <code>sites-config.yaml</code> in the current
+directory, the <code>$XDG_HOME/walrus/sites-config.yaml</code> and <code>$HOME/walrus/sites-config.yaml</code> directory.
+In case you want to use explicitly a different <code>sites-config.yaml</code>, use the <code>--config</code> flag to
+specify the path to the configuration file.</p>
+</div>
+</div>
+<p>Once this is done, you should be able to simply type <code>site-builder</code> in your terminal.</p>
+<pre><code class="language-terminal">$ site-builder
+Usage: site-builder [OPTIONS] &lt;COMMAND&gt;
+
+Commands:
+  publish  Publish a new site on Sui
+  update   Update an existing site
+  convert  Convert an object ID in hex format to the equivalent Base36
+               format
+  sitemap  Show the pages composing the Walrus site at the given object ID
+  help     Print this message or the help of the given subcommand(s)
+
+  ⋮
+</code></pre>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>The <code>site-builder</code> tool needs a configuration file to work. This file is called <code>sites-config.yaml</code>
+and looks like this:</p>
+<pre><code class="language-yaml">contexts:
+  testnet:
+    # module: site
+    # portal: wal.app
+    package: 0xf99aee9f21493e1590e7e5a9aea6f343a1f381031a04a732724871fc294be799
+    staking_object: 0xbe46180321c30aab2f8b3501e24048377287fa708018a5b7c2792b35fe339ee3
+    general:
+       wallet_env: testnet
+       walrus_context: testnet # Assumes a Walrus CLI setup with a multi-config containing the "testnet" context.
+       walrus_package: 0xd84704c17fc870b8764832c535aa6b11f21a95cd6f5bb38a9b07d2cf42220c66
+       # wallet_address: 0x1234...
+       # rpc_url: https://fullnode.testnet.sui.io:443
+       # wallet: /path/to/.sui/sui_config/client.yaml
+       # walrus_binary: /path/to/walrus
+       # walrus_config: /path/to/testnet/client_config.yaml
+       # gas_budget: 500000000
+  mainnet:
+    # module: site
+    # portal: wal.app
+    package: 0x26eb7ee8688da02c5f671679524e379f0b837a12f1d1d799f255b7eea260ad27
+    staking_object: 0x10b9d30c28448939ce6c4d6c6e0ffce4a7f8a4ada8248bdad09ef8b70e4a3904
+    general:
+       wallet_env: mainnet
+       walrus_context: mainnet # Assumes a Walrus CLI setup with a multi-config containing the "mainnet" context.
+       walrus_package: 0xfdc88f7d7cf30afab2f82e8380d11ee8f70efb90e863d1de8616fae1bb09ea77
+       # wallet_address: 0x1234...
+       # rpc_url: https://fullnode.mainnet.sui.io:443
+       # wallet: /path/to/.sui/sui_config/client.yaml
+       # walrus_binary: /path/to/walrus
+       # walrus_config: /path/to/mainnet/client_config.yaml
+       # gas_budget: 500000000
+
+default_context: mainnet
+</code></pre>
+<p>As you can see, the configuration file is quite simple. You can define here different contexts and
+their configurations, with just the package id field being the mandatory one, representing the Sui
+object ID of the Walrus Sites smart contract. You can find the latest version of the package in the
+<a href="https://github.com/MystenLabs/walrus-sites/tree/mainnet">Walrus Sites repository</a> on the <code>mainnet</code>
+branch.</p>
+<div id="admonition-walrus-sites-stable-branch" class="admonition admonish-danger" role="note" aria-labelledby="admonition-walrus-sites-stable-branch-title">
+<div class="admonition-title">
+<div id="admonition-walrus-sites-stable-branch-title">
+<p>Walrus Sites stable branch</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-walrus-sites-stable-branch"></a>
+</div>
+<div>
+<p>The stable branch of Walrus Sites is <code>mainnet</code>.
+Make sure that you always pull the latest changes from there.</p>
+</div>
+</div>
+<p>You can define the location of the <code>sites-config.yaml</code> file using the <code>--config</code> flag when running
+the <code>site-builder</code> commands like so:</p>
+<pre><code class="language-sh">site-builder --config /path/to/sites-config.yaml publish &lt;build-directory-of-a-site&gt;
+</code></pre>
+<p>However, if are not a fan of repeating the same flags over and over, it's always easier to have the
+configuration file in one of the <a href="./tutorial-install.html#admonition-note">default locations</a>.</p>
+<p>Download the <code>sites-config.yaml</code> file from the repository, and place it in one of the aforementioned
+default locations. To illustrate, we will use the <code>~/.config/walrus</code> directory, like so:</p>
+<pre><code class="language-sh">curl https://raw.githubusercontent.com/MystenLabs/walrus-sites/refs/heads/mainnet/sites-config.yaml -o ~/.config/walrus/sites-config.yaml
+</code></pre>
+<p>You are now ready to start working on your Walrus Sites! 🎉</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../walrus-sites/tutorial.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../walrus-sites/tutorial-publish.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../walrus-sites/tutorial.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../walrus-sites/tutorial-publish.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../docs/theme/tabs.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
