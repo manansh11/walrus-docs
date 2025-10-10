@@ -51,7 +51,7 @@ To quickly configure the Sui client, run:
 $ sui client --yes
 ```
 
-Enter [`https://fullnode.testnet.sui.io:443`](https://fullnode.testnet.sui.io/) when prompted for the full node server URL, and enter `0` for the encryption scheme.
+Enter `https://fullnode.testnet.sui.io:443` when prompted for the full node server URL, and enter `0` for the encryption scheme.
 
 To confirm the Walrus configuration is now using Testnet, run the command:
 
