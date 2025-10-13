@@ -34,7 +34,7 @@ documentation](https://docs.sui.io/guides/developer/getting-started/connect) for
 After this, you should get something like this (everything besides the `mainnet` line is optional):
 
 ```terminal
-$ sui client envs
+sui client envs
 ╭──────────┬─────────────────────────────────────┬────────╮
 │ alias    │ url                                 │ active │
 ├──────────┼─────────────────────────────────────┼────────┤
@@ -48,7 +48,7 @@ $ sui client envs
 Make sure you have at least one gas coin with at least 1 SUI.
 
 ```terminal
-$ sui client gas
+sui client gas
 ╭─────────────────┬────────────────────┬──────────────────╮
 │ gasCoinId       │ mistBalance (MIST) │ suiBalance (SUI) │
 ├─────────────────┼────────────────────┼──────────────────┤
@@ -102,7 +102,7 @@ You can see usage instructions as follows (see [the next chapter](./interacting.
 details):
 
 ```terminal
-$ walrus --help
+walrus --help
 Walrus client
 
 Usage: walrus [OPTIONS] <COMMAND>
