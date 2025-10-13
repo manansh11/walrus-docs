@@ -79,7 +79,7 @@ is stored for the first time, a `newlyCreated` field contains information about 
 new blob:
 
 ```sh
-$ curl -X PUT "$PUBLISHER/v1/blobs" -d "some other string"
+curl -X PUT "$PUBLISHER/v1/blobs" -d "some other string"
 {
   "newlyCreated": {
     "blobObject": {
@@ -114,7 +114,7 @@ When the publisher finds a certified blob with the same blob ID and a sufficient
 it returns a `alreadyCertified` JSON structure:
 
 ```sh
-$ curl -X PUT "$PUBLISHER/v1/blobs" -d "some other string"
+curl -X PUT "$PUBLISHER/v1/blobs" -d "some other string"
 {
   "alreadyCertified": {
     "blobId": "M4hsZGQ1oCktdzegB6HnI6Mi28S2nqOPHxK-W7_4BUk",
@@ -222,7 +222,7 @@ later. The following example shows the command and response (the actual JSON out
 as a single line; it's formatted here for readability):
 
 ```console
-$ curl -X PUT "http://127.0.0.1:31415/v1/quilts?epochs=1" \
+curl -X PUT "http://127.0.0.1:31415/v1/quilts?epochs=1" \
   -F "walrus.jpg=@./walrus-33.jpg" \
   -F "another_walrus.jpg=@./walrus-46.jpg"
 {
