@@ -74,7 +74,7 @@ specify the path to the configuration file.
 Once this is done, you should be able to simply type `site-builder` in your terminal.
 
 ```terminal
-$ site-builder
+site-builder
 Usage: site-builder [OPTIONS] <COMMAND>
 
 Commands:
