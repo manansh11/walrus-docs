@@ -27,7 +27,7 @@ shards in the system, the maximum blob size, and the current cost in WAL for sto
 blobs:
 
 ```console
-$ walrus info
+walrus info
 
 Walrus system information
 
