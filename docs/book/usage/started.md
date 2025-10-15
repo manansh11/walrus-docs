@@ -45,30 +45,21 @@ curl https://manansh11.github.io/walrus-docs/setup/client_config_testnet.yaml -o
 
 Next, you will need to configure the Sui client to connect to Testnet. The Sui client configuration is separate from the Walrus client configuration. [Learn more about the Sui client configuration.](https://docs.sui.io/guides/developer/getting-started/connect#configure-sui-client)
 
-First, initialize the Sui client:
+Initialize the Sui client:
 
 ```bash
 sui client
 ```
 
-When prompted if you want to connect to a Sui full node server, select `Y`, then enter `https://fullnode.testnet.sui.io:443` when prompted for the full node server URL, and enter `0` for the encryption scheme.
+When prompted, enter the following:
+- Connect to a Sui Full Node server? → `Y`
+- Full node server URL → `https://fullnode.testnet.sui.io:443`
+- Environment alias → `testnet`
+- Select key scheme → `0` (for ed25519)
 
-This creates your Sui client configuration file. Next, create a Sui environment explicitly named "testnet" and switch to it:
+This creates your Sui client configuration file with a "testnet" environment and generates your first address.
 
-```bash
-sui client new-env --alias testnet --rpc https://fullnode.testnet.sui.io:443
-sui client switch --env testnet
-```
-
-To confirm the Sui configuration is now using Testnet, run the command:
-
-```bash
-sui client active-env
-```
-
-This should output `testnet`.
-
-To confirm the Walrus configuration is also using Testnet, run the command:
+To confirm the Walrus configuration is using Testnet, run the command:
 
 ```bash
 walrus info
@@ -78,9 +69,9 @@ Make sure that this command's output includes `Epoch duration: 1day` to indicate
 
 For detailed information about the `walrus` command-line tool, use the `walrus --help` command. Or, append  `--help` to any `walrus` subcommand to get details about that specific command.
 
-## Create a Sui account
+## Understanding Your Sui Account
 
-Sui uses addresses and accounts. These are important for Walrus because when you store blobs on Walrus, they will be bound to an object on Sui that is owned by an address. 
+When you ran `sui client` during setup, a Sui account was automatically created for you. Sui uses addresses and accounts, which are important for Walrus because when you store blobs on Walrus, they will be bound to an object on Sui that is owned by an address.
 
 An *address* is a unique location on the blockchain, identified by a 32-byte identifier (displayed as 64 hex characters with `0x` prefix) that can own objects and is derived from a public key using a hash function.
 
@@ -88,25 +79,33 @@ Addresses are visible to anyone, and are valid on all networks (Testnet, Mainnet
 
 An *account* is an address plus the key to access it. If you have an address's private key, you can actually use what's owned by the address, such as tokens and objects.
 
-To create an account, first verify that `sui` was installed successfully:
+To view your active address, run:
 
 ```bash
-sui --version
+sui client active-address
 ```
 
-Then, create a new address with the command:
+To see all your addresses and their key schemes, run:
 
 ```bash
-sui client new-address ed25519
+sui client addresses
 ```
-
-The argument `ed25519`specifies the key pair scheme to be of type `ed25519`.
 
 ```admonish warning title="Store your keys securely"
 You must store your private key and recovery phrase securely, otherwise you may lose access to your address.
 
 [Learn more about addresses, available key pair options, and key storage.](https://docs.sui.io/guides/developer/getting-started/get-address)
 ```
+
+### Creating additional addresses (Optional)
+
+You can create additional addresses if needed:
+
+```bash
+sui client new-address ed25519
+```
+
+The argument `ed25519` specifies the key pair scheme to be of type `ed25519`.
 
 ## Fund Sui account with tokens
 
