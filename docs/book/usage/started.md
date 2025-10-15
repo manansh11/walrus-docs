@@ -45,7 +45,15 @@ curl https://manansh11.github.io/walrus-docs/setup/client_config_testnet.yaml -o
 
 Next, you will need to configure the Sui client to connect to Testnet. The Sui client configuration is separate from the Walrus client configuration. [Learn more about the Sui client configuration.](https://docs.sui.io/guides/developer/getting-started/connect#configure-sui-client)
 
-Create a new Sui environment named "testnet" and switch to it:
+First, initialize the Sui client:
+
+```bash
+sui client
+```
+
+When prompted if you want to connect to a Sui full node server, select `Y`, then enter `https://fullnode.testnet.sui.io:443` when prompted for the full node server URL, and enter `0` for the encryption scheme.
+
+This creates your Sui client configuration file. Next, create a Sui environment explicitly named "testnet" and switch to it:
 
 ```bash
 sui client new-env --alias testnet --rpc https://fullnode.testnet.sui.io:443
