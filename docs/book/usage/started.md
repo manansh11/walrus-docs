@@ -43,21 +43,22 @@ mkdir ~/.config/walrus/
 curl https://manansh11.github.io/walrus-docs/setup/client_config_testnet.yaml -o ~/.config/walrus/client_config.yaml
 ```
 
-Next, you will need to run the Sui client. If this is your first time running a `sui client` command, you will be prompted to configure the local Sui client, which is separate to the Walrus client configuration. [Learn more about the Sui client configuration.](https://docs.sui.io/guides/developer/getting-started/connect#configure-sui-client)
+Next, you will need to configure the Sui client to connect to Testnet. The Sui client configuration is separate from the Walrus client configuration. [Learn more about the Sui client configuration.](https://docs.sui.io/guides/developer/getting-started/connect#configure-sui-client)
 
-To quickly configure the Sui client, run:
+Create a new Sui environment named "testnet" and switch to it:
 
 ```bash
-sui client
+sui client new-env --alias testnet --rpc https://fullnode.testnet.sui.io:443
+sui client switch --env testnet
 ```
-
-When prompted if you want to connect to a Sui full node server, select `Y`, then enter `https://fullnode.testnet.sui.io:443` when prompted for the full node server URL, and enter `0` for the encryption scheme.
 
 To confirm the Sui configuration is now using Testnet, run the command:
 
 ```bash
 sui client active-env
 ```
+
+This should output `testnet`.
 
 To confirm the Walrus configuration is also using Testnet, run the command:
 
@@ -83,12 +84,6 @@ To create an account, first verify that `sui` was installed successfully:
 
 ```bash
 sui --version
-```
-
-Then, set Testnet as the active Sui environment with the command:
-
-```bash
-sui client switch --env testnet
 ```
 
 Then, create a new address with the command:
